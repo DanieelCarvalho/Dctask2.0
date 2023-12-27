@@ -1,0 +1,65 @@
+<header>
+  <h1>Gerenciador de Tarefas Dctask</h1>
+</header>
+
+<main>
+  <figure class="figure">
+    <img src="./assets/planejamento.png" alt="#" />
+  </figure>
+
+  <section>
+    <form [formGroup]="formulario" (submit)="autenticar()" id="formAcessar">
+      <h2>Acesse sua conta</h2>
+
+      <div class="input-group mb-3">
+        <input
+          type="email"
+          formControlName="email"
+          class="form-control form-control-lg"
+          id="emailLogin"
+          aria-describedby="emailHelp"
+          placeholder="E-mail"
+          aria-label="Username"
+          aria-describedby="basic-addon1"
+          class="form-control"
+        />
+        <!-- <p *ngIf="formulario.get('email')?.hasError('required')">
+          O email precisa ser preenchido
+        </p> -->
+        <!-- <p *ngIf="formulario.get('email')?.hasError('email')">
+          informe um email válido
+        </p> -->
+      </div>
+
+      <div class="input-group mb-3">
+        <input
+          type="password"
+          formControlName="senha"
+          class="form-control form-control-lg"
+          id="senhaLogin"
+          placeholder="Senha"
+          required
+        />
+      </div>
+      <div
+        class="alert alert-danger"
+        id="alertaLogin"
+        role="alert"
+        style="display: none"
+      ></div>
+
+      <div class="buttons">
+        <input
+          type="submit"
+          value="Entrar"
+          class="btn btn-primary form-control-lg"
+          [disabled]="formulario.invalid"
+        />
+      </div>
+    </form>
+  </section>
+</main>
+
+<button class="btn btn-primary">
+  <a routerLink="/cadastro">Página 1</a>
+</button>

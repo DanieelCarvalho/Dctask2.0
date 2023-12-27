@@ -1,0 +1,122 @@
+<header>
+  <h1 id="nomeUsuario">Daniel</h1>
+  <figure>
+    <img src="/assets/sign-out.svg" alt="" onclick="sair()" />
+  </figure>
+</header>
+
+<main>
+  <h2>Adicione uma tarefa</h2>
+  <form [formGroup]="formulario" (submit)="criarTarefa()">
+    <div class="input-group mb-3">
+      <label for="exampleFormControlInput1" class="form-label"></label>
+      <input
+        type="text"
+        class="form-control"
+        id="tarefa"
+        placeholder="Tarefa"
+        formControlName="tarefa"
+      />
+    </div>
+
+    <div class="input-group mb-3">
+      <label for="exampleFormControlInput1" class="form-label"></label>
+      <input
+        type="text"
+        class="form-control"
+        id="dataInicio"
+        onfocus="(this.type='date')"
+        onblur="(this.type='text')"
+        placeholder="Data de início"
+        formControlName="dataInit"
+      />
+
+      <label for="exampleFormControlInput1" class="form-label"></label>
+      <input
+        type="text"
+        class="form-control"
+        id="horaInit"
+        onfocus="(this.type='time')"
+        onblur="(this.type='hora de início')"
+        placeholder="Hora de início"
+        formControlName="horaInit"
+      />
+    </div>
+    <div class="input-group mb-3">
+      <label for="exampleFormControlInput1" class="form-label"></label>
+      <input
+        type="text"
+        class="form-control"
+        id="dataTermino"
+        onfocus="(this.type='date')"
+        onblur="(this.type='text')"
+        placeholder="Data de termino"
+        name="dataTermino"
+        formControlName="dataFim"
+      />
+
+      <label for="exampleFormControlInput1" class="form-label"></label>
+      <input
+        type="text"
+        class="form-control"
+        id="horaFim"
+        onfocus="(this.type='time')"
+        onblur="(this.type='hora de início')"
+        placeholder="hora de fim"
+        formControlName="horaFim"
+      />
+    </div>
+
+    <div class="input-group">
+      <textarea
+        class="form-control"
+        aria-label="With textarea"
+        id="descricao"
+        placeholder="Descrição"
+        formControlName="descricao"
+      ></textarea>
+    </div>
+    <section class="buttons">
+      <div class="buttonCriarTarefa">
+        <input
+          type="submit"
+          value="Criar tarefa"
+          onclick="criar()"
+          class="btn btn-primary form-control-lg"
+        />
+      </div>
+      <div class="buttonALterarTarefa">
+        <input
+          onclick="alterarTarefa()"
+          type="button"
+          value="Alterar Tarefa"
+          class="btn btn-primary form-control-lg"
+        />
+      </div>
+      <div class="buttonExcluirTarefa">
+        <input
+          onclick="excluir()"
+          type="button"
+          value="Excluir tarefa"
+          class="btn btn-danger form-control-lg"
+        />
+      </div>
+      <div class="buttonTarefaRealizada" id="">
+        <input
+          onclick="realizada()"
+          type="button"
+          value="Marcar como realizada"
+          class="btn btn-success form-control-lg"
+        />
+      </div>
+      <div class="buttonCancelar">
+        <input
+          type="submit"
+          value="Cancelar"
+          class="btn btn-secondary form-control-lg"
+        />
+      </div>
+    </section>
+  </form>
+</main>
+<app-tabela></app-tabela>

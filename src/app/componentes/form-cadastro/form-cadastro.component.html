@@ -1,0 +1,48 @@
+<form [formGroup]="formulario" (submit)="cadastrar()">
+  <div class="input-group mb-3">
+    <input
+      type="text"
+      formControlName="nome"
+      class="form-control form-control-lg"
+      id="nome"
+      aria-describedby="emailHelp"
+      placeholder="Nome"
+    />
+  </div>
+  <div class="input-group mb-3">
+    <input
+      type="email"
+      formControlName="email"
+      class="form-control form-control-lg"
+      id="emailCadastro"
+      aria-describedby="emailHelp"
+      placeholder="E-mail"
+      required
+    />
+  </div>
+  <div class="input-group mb-3">
+    <input
+      type="password"
+      formControlName="senha"
+      class="form-control form-control-lg"
+      id="senhaCadastro"
+      placeholder="Senha"
+      required
+    />
+  </div>
+  <div
+    id="alertaCadastro"
+    class="alert alert-success"
+    role="alert"
+    style="display: none"
+  ></div>
+
+  <div class="buttons">
+    <input
+      type="submit"
+      value="Entrar"
+      class="btn btn-primary form-control-lg"
+      [disabled]="formulario.invalid"
+    />
+  </div>
+</form>

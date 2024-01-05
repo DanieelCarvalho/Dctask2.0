@@ -11,10 +11,17 @@
   <tbody>
     <tr *ngFor="let v of dadosLocalStorage">
       <td>{{ v.tarefa }}</td>
-      <td>{{ v.inicioFormatado }}</td>
-      <td>{{ v.fimFormatado }}</td>
+      <td>{{ v.inicio }}</td>
+      <td>{{ v.fim }}</td>
       <td>{{ v.status }}</td>
-      <td><button class="btn btn-primary">Alterar</button></td>
+      <td>
+        <input
+          type="button"
+          class="btn btn-primary"
+          value="Alterar"
+          (click)="alterar2(v.id)"
+        />
+      </td>
     </tr>
   </tbody>
 </table>

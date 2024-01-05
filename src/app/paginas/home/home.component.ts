@@ -8,6 +8,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { UsuarioService } from '../../servicos/usuario.service';
+import { Credencial } from '../../models/Credencial';
 
 @Component({
   selector: 'app-home',
@@ -18,13 +20,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './home.component.css',
 })
 export class HomeComponent {
-  constructor(private rota: Router) {}
-  userValid = {
-    id: '',
-    nome: '',
-    email: '',
-    senha: '',
-  };
+  constructor(private rota: Router, private servico: UsuarioService) {}
 
   formulario = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -32,44 +28,13 @@ export class HomeComponent {
   });
 
   autenticar(): void {
-    const listaUser = JSON.parse(localStorage.getItem('listaUser') || '[]');
-
-    listaUser.forEach((item: any) => {
-      if (
-        this.formulario.value.email == item.email &&
-        this.formulario.value.senha === item.senha
-      ) {
-        this.userValid = {
-          id: item.id,
-          nome: item.nome,
-          email: item.email,
-          senha: item.senha,
-        };
-      }
-      if (
-        this.formulario.value.email === this.userValid.email &&
-        this.formulario.value.senha === this.userValid.senha
-      ) {
+    this.servico
+      .autenticar(this.formulario.value as Credencial)
+      .subscribe((r) => {
         this.rota.navigateByUrl('/admin');
-        const token = Math.random().toString(16).substring(2);
-        localStorage.setItem('token', token);
-
-        localStorage.setItem('userLogado', JSON.stringify(this.userValid));
-      }
-      console.log(this.userValid);
-    });
+        localStorage.setItem('token', r.token);
+        localStorage.setItem('nome', r.username);
+        console.log(r);
+      });
   }
-
-  //   if (
-  //     this.formulario.value.email === 'danielscg2012@gmail.com' &&
-  //     this.formulario.value.senha === '123'
-  //   ) {
-  //     localStorage.setItem('email', this.formulario.value.email);
-
-  //     // Redirecionamento de rota
-  //     this.rota.navigateByUrl('/admin');
-  //   } else {
-  //     alert('E-mail ou senha incorretos.');
-  //   }
-  // }
 }

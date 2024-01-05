@@ -1,5 +1,5 @@
 <header>
-  <h1 id="nomeUsuario">Daniel</h1>
+  <h1>Olá,{{ nome }} .</h1>
   <figure>
     <img src="/assets/sign-out.svg" alt="" onclick="sair()" />
   </figure>
@@ -16,6 +16,7 @@
         id="tarefa"
         placeholder="Tarefa"
         formControlName="tarefa"
+        value="{{ formulario.value.tarefa }}"
       />
     </div>
 
@@ -29,6 +30,7 @@
         onblur="(this.type='text')"
         placeholder="Data de início"
         formControlName="dataInit"
+        value="{{ formulario.value.dataInit }}"
       />
 
       <label for="exampleFormControlInput1" class="form-label"></label>
@@ -40,6 +42,7 @@
         onblur="(this.type='hora de início')"
         placeholder="Hora de início"
         formControlName="horaInit"
+        value="{{ formulario.value.horaInit }}"
       />
     </div>
     <div class="input-group mb-3">
@@ -53,6 +56,7 @@
         placeholder="Data de termino"
         name="dataTermino"
         formControlName="dataFim"
+        value="{{ formulario.value.dataFim }}"
       />
 
       <label for="exampleFormControlInput1" class="form-label"></label>
@@ -64,6 +68,7 @@
         onblur="(this.type='hora de início')"
         placeholder="hora de fim"
         formControlName="horaFim"
+        value="{{ formulario.value.horaFim }}"
       />
     </div>
 
@@ -74,36 +79,38 @@
         id="descricao"
         placeholder="Descrição"
         formControlName="descricao"
+        value="{{ formulario.value.descricao }}"
       ></textarea>
     </div>
     <section class="buttons">
-      <div class="buttonCriarTarefa">
-        <input
-          type="submit"
-          value="Criar tarefa"
-          onclick="criar()"
-          class="btn btn-primary form-control-lg"
-        />
-      </div>
       <div class="buttonALterarTarefa">
         <input
-          onclick="alterarTarefa()"
+          *ngIf="buttons"
           type="button"
           value="Alterar Tarefa"
           class="btn btn-primary form-control-lg"
         />
       </div>
+
       <div class="buttonExcluirTarefa">
         <input
-          onclick="excluir()"
+          *ngIf="buttons"
           type="button"
           value="Excluir tarefa"
           class="btn btn-danger form-control-lg"
+          (click)="apagarTarefa()"
+        />
+      </div>
+      <div class="buttonCriarTarefa">
+        <input
+          type="submit"
+          value="Criar tarefa"
+          class="btn btn-primary form-control-lg"
         />
       </div>
       <div class="buttonTarefaRealizada" id="">
         <input
-          onclick="realizada()"
+          *ngIf="buttons"
           type="button"
           value="Marcar como realizada"
           class="btn btn-success form-control-lg"
@@ -111,6 +118,7 @@
       </div>
       <div class="buttonCancelar">
         <input
+          *ngIf="buttons"
           type="submit"
           value="Cancelar"
           class="btn btn-secondary form-control-lg"
@@ -119,4 +127,5 @@
     </section>
   </form>
 </main>
-<app-tabela></app-tabela>
+
+<app-tabela (alterar)="alterar($event)"></app-tabela>

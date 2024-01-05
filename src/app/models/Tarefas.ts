@@ -1,10 +1,9 @@
 export class Tarefas {
-  estaDeletado: boolean = false;
   usuarioId?: number;
-  idTarefas?: number;
+  id?: number;
   tarefa?: string;
-  inicio?: number;
-  fim?: number;
+  inicio?: string;
+  fim?: string;
   status?: string;
   descricao?: string;
 }

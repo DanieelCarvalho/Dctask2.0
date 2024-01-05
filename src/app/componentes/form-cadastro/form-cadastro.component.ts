@@ -7,6 +7,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UsuarioService } from '../../servicos/usuario.service';
+import { Usuario } from '../../models/Usuario';
 
 @Component({
   selector: 'app-form-cadastro',
@@ -16,7 +18,10 @@ import { Router } from '@angular/router';
   styleUrl: './form-cadastro.component.css',
 })
 export class FormCadastroComponent {
-  constructor(private rota: Router) {}
+  constructor(private servico: UsuarioService, private rota: Router) {}
+
+  usuarios: Usuario[] = [];
+
   formulario = new FormGroup({
     nome: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -24,22 +29,26 @@ export class FormCadastroComponent {
   });
 
   cadastrar(): void {
-    const listaUser = JSON.parse(localStorage.getItem('listaUser') || '[]');
-
-    const emailExiste: boolean = listaUser.some(
-      (user: { email: string }) => user.email === this.formulario.value.email
-    );
-
-    if (!emailExiste) {
-      listaUser.push({
-        id: listaUser.length + 1,
-        nome: this.formulario.value.nome,
-        email: this.formulario.value.email,
-        senha: this.formulario.value.senha,
+    this.servico
+      .cadastrar(this.formulario.value as Usuario)
+      .subscribe((usuario) => {
+        this.usuarios.push(usuario);
+        this.formulario.reset();
       });
-    }
-    localStorage.setItem('listaUser', JSON.stringify(listaUser));
-    console.log('dentro');
     this.rota.navigateByUrl('/home');
+    // const listaUser = JSON.parse(localStorage.getItem('listaUser') || '[]');
+
+    // const emailExiste: boolean = listaUser.some(
+    //   (user: { email: string }) => user.email === this.formulario.value.email
+    // );
+
+    // if (!emailExiste) {
+    //   listaUser.push({
+    //     id: listaUser.length + 1,
+    //     nome: this.formulario.value.nome,
+    //     email: this.formulario.value.email,
+    //     senha: this.formulario.value.senha,
+    //   });
   }
+  // localStorage.setItem('listaUser', JSON.stringify(listaUser));
 }

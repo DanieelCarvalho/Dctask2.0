@@ -79,7 +79,6 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
-  display: none;
 }
 .buttonExcluirTarefa {
   width: 100%;
@@ -87,7 +86,6 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
-  display: none;
 }
 .buttonTarefaRealizada {
   width: 100%;
@@ -95,7 +93,6 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
-  display: none;
 }
 .buttonCancelar {
   width: 100%;
@@ -103,7 +100,6 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
-  display: none;
 }
 
 @media (max-width: 600px) {

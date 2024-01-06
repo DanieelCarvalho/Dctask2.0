@@ -49,11 +49,18 @@ main section form label {
   font-size: 5rem;
 }
 
-.buttons input {
+/* .buttons input {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 8rem;
+  font-size: 1.6rem;
+} */
+.buttons {
+  border: solid red;
+  display: flex;
+  justify-content: space-evenly;
+
   font-size: 1.6rem;
 }
 .status {

@@ -21,21 +21,51 @@ export class TabelaComponent {
   @Output() alterar = new EventEmitter<number>();
 
   listaSubscribe: any = Subscription;
+  idTarefa: number | null = null;
+  teste: any;
 
   alterar2(id: any): void {
     this.alterar.emit(id);
     console.log(id, 'ola');
     // console.log(this.dadosLocalStorage);
   }
+  obterStatus(): any {
+    const dataAtual = new Date();
+    // const dataFim = new Date(this.dadosLocalStorage);
 
-  ngOnInit(): void {
+    // const dataDif = (dataFim - dataAtual) / (1000 * 60 * 60 * 24);
+    // if (tarefas.status === 'Realizada') {
+    //   return 'Realizada';
+    // } else if (dataFim > dataAtual && dataDif < 1) {
+    //   return 'Pendente';
+    // } else if (dataFim > dataAtual) {
+    //   return 'andamento';
+    // } else {
+    //   return 'Em Atraso';
+    // }
+  }
+  mostrarTarefa(id: any): void {
+    this.idTarefa = id;
+    console.log(this.idTarefa);
+  }
+  mostrarTabela(): any {
+    this.obterStatus();
     this.servicoDados.listarDados().subscribe((r) => {
       this.servicoDados.listas.next(r);
     });
 
     this.listaSubscribe = this.servicoDados.listas.subscribe((r) => {
       this.dadosLocalStorage = r;
+      console.log(this.dadosLocalStorage);
     });
+
+    const teste = this.dadosLocalStorage.forEach((r) => {
+      return r.fim;
+    });
+  }
+
+  ngOnInit(): void {
+    this.mostrarTabela();
   }
   ngOnDestroy() {
     this.listaSubscribe?.unsubscribe();

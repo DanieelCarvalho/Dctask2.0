@@ -1,8 +1,6 @@
 <header>
-  <h1>Olá,{{ nome }} .</h1>
-  <figure>
-    <img src="/assets/sign-out.svg" alt="" onclick="sair()" />
-  </figure>
+  <h1>Olá, {{ primeiroNome[0] }}.</h1>
+  <figure><img src="/assets/sign-out.svg" alt="" (click)="sair()" /></figure>
 </header>
 
 <main>
@@ -89,6 +87,7 @@
           type="button"
           value="Alterar Tarefa"
           class="btn btn-primary form-control-lg"
+          (click)="modificarTarefa()"
         />
       </div>
 
@@ -122,6 +121,7 @@
           type="submit"
           value="Cancelar"
           class="btn btn-secondary form-control-lg"
+          (click)="cancelar()"
         />
       </div>
     </section>

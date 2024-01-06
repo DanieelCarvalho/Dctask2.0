@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, numberAttribute } from '@angular/core';
 import { TabelaComponent } from '../../componentes/tabela/tabela.component';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -7,6 +7,7 @@ import { DadosTarefasComponent } from '../../componentes/dados-tarefas/dados-tar
 import { Tarefas } from '../../models/Tarefas';
 import { DadosTarefasService } from '../../servicos/dados-tarefas.service';
 import { BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin',
@@ -28,15 +29,25 @@ export class AdminComponent {
   nome: any = localStorage.getItem('nome');
   idTarefa: number | null = null;
   buttons: boolean = false;
+  primeiroNome: string = this.nome.split(' ');
+  token: any = localStorage.getItem('token');
 
   dadosLocalStorage: Tarefas[] = [];
-  constructor(private servicoDados: DadosTarefasService) {}
+  constructor(
+    private servicoDados: DadosTarefasService,
+    private rota: Router
+  ) {}
+
+  sair(): any {
+    this.rota.navigateByUrl('/home');
+    localStorage.removeItem('token');
+    localStorage.removeItem('nome');
+  }
 
   alterar(id: number): any {
     const tarefa = this.servicoDados.listas.value.filter((tarefa) => {
       return tarefa.id === id;
     });
-
     this.formulario.value.tarefa = tarefa[0].tarefa;
     this.formulario.value.dataInit = tarefa[0].inicio?.split('T')[0];
     this.formulario.value.horaInit = tarefa[0].inicio?.split('T')[1];
@@ -44,13 +55,11 @@ export class AdminComponent {
     this.formulario.value.horaFim = tarefa[0].fim?.split('T')[1];
     this.formulario.value.descricao = tarefa[0].descricao;
 
+    this.buttons = true;
     console.log(tarefa, 'oi');
     console.log(id, 'mudou');
     this.idTarefa = id;
-    this.buttons = !this.buttons;
   }
-
-  token: any = localStorage.getItem('token');
 
   apagarTarefa(): any {
     if (this.idTarefa) {
@@ -66,7 +75,6 @@ export class AdminComponent {
   }
 
   criarTarefa(): any {
-    console.log(this.formulario.value);
     const payload = {
       tarefa: this.formulario.value.tarefa,
       inicio: `${this.formulario.value.dataInit}T${this.formulario.value.horaInit}`,
@@ -85,5 +93,32 @@ export class AdminComponent {
       console.log(this.servicoDados.listas.value, 'oi');
     });
     this.formulario.reset();
+  }
+  modificarTarefa(): any {
+    const tarefa = this.servicoDados.listas.value.filter((tarefa) => {
+      return tarefa.id === this.idTarefa;
+    });
+
+    const payload = {
+      tarefa: this.formulario.value.tarefa,
+      inicio: `${this.formulario.value.dataInit}T${this.formulario.value.horaInit}`,
+      fim: `${this.formulario.value.dataFim}T${this.formulario.value.horaFim}`,
+      descricao: this.formulario.value.descricao,
+      status: 'pendente',
+    };
+    this.servicoDados
+      .modificarTarefa(payload as Tarefas, this.idTarefa)
+      .subscribe((r) => {
+        console.log(r);
+      });
+    this.servicoDados.listarDados().subscribe((r) => {
+      console.log(r);
+      this.servicoDados.listas.next(r);
+      console.log(this.servicoDados.listas.value, 'oi');
+    });
+  }
+  cancelar(): any {
+    this.formulario.reset();
+    this.buttons = !this.buttons;
   }
 }

@@ -27,6 +27,13 @@ export class DadosTarefasService {
       }),
     });
   }
+  modificarTarefa(obj: Tarefas, id: any): Observable<Tarefas> {
+    return this.http.put(`${this.url}/tarefas/${id}`, obj, {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      }),
+    });
+  }
   remover(id: number): Observable<number> {
     console.log(id, typeof id);
     return this.http.delete<number>(`${this.url}/tarefas/${id}`, {

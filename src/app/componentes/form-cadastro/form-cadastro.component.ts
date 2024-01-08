@@ -25,7 +25,7 @@ export class FormCadastroComponent {
   formulario = new FormGroup({
     nome: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    senha: new FormControl('', [Validators.required]),
+    senha: new FormControl('', [Validators.required, Validators.minLength(7)]),
   });
 
   cadastrar(): void {

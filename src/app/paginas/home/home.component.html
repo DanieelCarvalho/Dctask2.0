@@ -1,7 +1,7 @@
 <header>
-  <h1>Gerenciador de Tarefas 𝗱𝗰𝗧𝗮𝘀𝗰𝗸</h1>
+  <h1>dcTask</h1>
 
-  <a routerLink="/cadastro">Cadastre-se </a>
+  <a class="link-cadastro" routerLink="/cadastro">Cadastre-se </a>
 </header>
 
 <main>
@@ -27,8 +27,8 @@
         />
         <!-- <p *ngIf="formulario.get('email')?.hasError('required')">
           O email precisa ser preenchido
-        </p> -->
-        <!-- <p *ngIf="formulario.get('email')?.hasError('email')">
+        </p>
+        <p *ngIf="formulario.get('email')?.hasError('email')">
           informe um email válido
         </p> -->
       </div>
@@ -40,15 +40,19 @@
           class="form-control form-control-lg"
           id="senhaLogin"
           placeholder="Senha"
+          class="form-control"
           required
         />
       </div>
-      <div
-        class="alert alert-danger"
-        id="alertaLogin"
+
+      <p
+        *ngIf="senhaIncorreta"
+        class="mensagem-erro"
+        class="alert alert-danger form-control"
         role="alert"
-        style="display: none"
-      ></div>
+      >
+        Senha ou e-mail incorreto. Tente novamente.
+      </p>
 
       <div class="buttons">
         <input

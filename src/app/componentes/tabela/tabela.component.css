@@ -5,6 +5,9 @@ form {
   justify-content: center;
   width: 50%;
 }
+#tabelaDados {
+  margin-left: 3rem;
+}
 
 .button-tarefa {
   display: flex;
@@ -64,5 +67,8 @@ form {
 @media (max-width: 600px) {
   form {
     width: 95vw;
+  }
+  #tabelaDados {
+    margin-left: 1rem;
   }
 }

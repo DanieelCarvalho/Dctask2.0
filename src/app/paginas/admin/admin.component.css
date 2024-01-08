@@ -9,8 +9,9 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 0.01rem solid;
   height: 8vh;
+  border-bottom: 1 solid #aaa;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
 header h1 {
   display: flex;
@@ -49,6 +50,13 @@ h2 {
   justify-content: center;
 
   height: 5rem;
+}
+.tabela {
+  /* border: solid red;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%; */
 }
 
 .button-tarefa {

@@ -6,3 +6,13 @@ form {
 input {
   margin-bottom: 10px;
 }
+h2 {
+  font-family: "Anton", sans-serif;
+  font-weight: normal;
+}
+.buttons {
+  font-family: "Roboto", sans-serif;
+}
+.validacao {
+  color: red;
+}

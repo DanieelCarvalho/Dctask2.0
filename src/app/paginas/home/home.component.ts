@@ -26,15 +26,24 @@ export class HomeComponent {
     email: new FormControl('', [Validators.required, Validators.email]),
     senha: new FormControl('', Validators.required),
   });
+  senhaIncorreta: boolean = false;
 
   autenticar(): void {
-    this.servico
-      .autenticar(this.formulario.value as Credencial)
-      .subscribe((r) => {
+    this.servico.autenticar(this.formulario.value as Credencial).subscribe(
+      (r) => {
         this.rota.navigateByUrl('/admin');
         localStorage.setItem('token', r.token);
         localStorage.setItem('nome', r.username);
         console.log(r);
-      });
+      },
+      (error) => {
+        if (error.status === 401) {
+          this.senhaIncorreta = true;
+          setTimeout(() => {
+            this.senhaIncorreta = false;
+          }, 2000);
+        }
+      }
+    );
   }
 }

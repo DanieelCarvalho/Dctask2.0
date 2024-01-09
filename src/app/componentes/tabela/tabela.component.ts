@@ -51,11 +51,26 @@ export class TabelaComponent {
   mostrarTabela(): any {
     this.obterStatus();
     this.servicoDados.listarDados().subscribe((r) => {
-      this.servicoDados.listas.next(r);
+      const tarefas = r.map((t) => {
+        return {
+          ...t,
+          fim: dayjs(t.fim).format('DD/MM/YYYY HH:mm'),
+          inicio: dayjs(t.inicio).format('DD/MM/YYYY HH:mm'),
+        };
+      });
+      this.servicoDados.listas.next(tarefas);
     });
 
     this.listaSubscribe = this.servicoDados.listas.subscribe((r) => {
-      this.dadosLocalStorage = r;
+      const tarefas = r.map((t) => {
+        return {
+          ...t,
+          fim: dayjs(t.fim).format('DD/MM/YYYY HH:mm'),
+          inicio: dayjs(t.inicio).format('DD/MM/YYYY HH:mm'),
+        };
+      });
+
+      this.dadosLocalStorage = tarefas;
       console.log(this.dadosLocalStorage);
     });
 

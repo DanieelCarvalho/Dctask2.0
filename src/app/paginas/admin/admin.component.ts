@@ -80,7 +80,6 @@ export class AdminComponent {
       inicio: `${this.formulario.value.dataInit}T${this.formulario.value.horaInit}`,
       fim: `${this.formulario.value.dataFim}T${this.formulario.value.horaFim}`,
       descricao: this.formulario.value.descricao,
-      status: 'pendente',
     };
 
     this.servicoDados.criarTarefas(payload as Tarefas).subscribe((r) => {
@@ -94,7 +93,7 @@ export class AdminComponent {
     });
     this.formulario.reset();
   }
-  modificarTarefa(): any {
+  modificarTarefa(status?: string): any {
     const tarefa = this.servicoDados.listas.value.filter((tarefa) => {
       return tarefa.id === this.idTarefa;
     });
@@ -103,9 +102,11 @@ export class AdminComponent {
       tarefa: this.formulario.value.tarefa,
       inicio: `${this.formulario.value.dataInit}T${this.formulario.value.horaInit}`,
       fim: `${this.formulario.value.dataFim}T${this.formulario.value.horaFim}`,
+
       descricao: this.formulario.value.descricao,
-      status: 'pendente',
+      status: status || 'Pendente',
     };
+    console.log(this.formulario.value);
     this.servicoDados
       .modificarTarefa(payload as Tarefas, this.idTarefa)
       .subscribe((r) => {
@@ -116,7 +117,9 @@ export class AdminComponent {
       this.servicoDados.listas.next(r);
       console.log(this.servicoDados.listas.value, 'oi');
     });
+    this.buttons = !this.buttons;
   }
+
   cancelar(): any {
     this.formulario.reset();
     this.buttons = !this.buttons;

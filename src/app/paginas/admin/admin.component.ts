@@ -37,6 +37,9 @@ export class AdminComponent {
     private servicoDados: DadosTarefasService,
     private rota: Router
   ) {}
+  focus(event: Event) {
+    event.preventDefault();
+  }
 
   sair(): any {
     this.rota.navigateByUrl('/home');
@@ -45,40 +48,62 @@ export class AdminComponent {
   }
 
   alterar(id: number): any {
+    this.idTarefa = id;
+    console.log('alterando');
     const tarefa = this.servicoDados.listas.value.filter((tarefa) => {
       return tarefa.id === id;
     });
-    this.formulario.value.tarefa = tarefa[0].tarefa;
-    this.formulario.value.dataInit = tarefa[0].inicio?.split('T')[0];
-    this.formulario.value.horaInit = tarefa[0].inicio?.split('T')[1];
-    this.formulario.value.dataFim = tarefa[0].fim?.split('T')[0];
-    this.formulario.value.horaFim = tarefa[0].fim?.split('T')[1];
-    this.formulario.value.descricao = tarefa[0].descricao;
+    const dataInicio = dayjs(tarefa[0].inicio?.split(' ')[0]).format(
+      'DD/MM/YYYY HH:mm'
+    );
 
+    console.log(dataInicio);
+
+    this.formulario.patchValue({
+      tarefa: tarefa[0].tarefa || '',
+      dataInit: tarefa[0].inicio?.split(' ')[0] || '',
+      horaInit: tarefa[0].inicio?.split(' ')[1] || '',
+      dataFim: tarefa[0].fim?.split(' ')[0] || '',
+      horaFim: tarefa[0].fim?.split(' ')[1] || '',
+      descricao: tarefa[0].descricao || '',
+    });
+    console.log(this.formulario.value);
     this.buttons = true;
-    console.log(tarefa, 'oi');
-    console.log(id, 'mudou');
-    this.idTarefa = id;
   }
 
   apagarTarefa(): any {
     if (this.idTarefa) {
-      this.servicoDados.remover(this.idTarefa).subscribe((r) => {
-        this.idTarefa = null;
-        this.formulario.reset();
+      this.servicoDados.remover(this.idTarefa).subscribe({
+        next: () => {
+          this.idTarefa = null;
+          this.formulario.reset();
+          this.servicoDados.listarDados().subscribe((r) => {
+            const tarefas = r.map((t) => {
+              return {
+                ...t,
+
+                inicio: dayjs(t.inicio).format('DD/MM/YYYY HH:mm'),
+                fim: dayjs(t.fim).format('DD/MM/YYYY HH:mm'),
+              };
+            });
+
+            this.servicoDados.listas.next(tarefas);
+          });
+        },
       });
-      this.servicoDados.listarDados().subscribe((r) => {
-        console.log(r);
-        this.servicoDados.listas.next(r);
-      });
+      //   this.servicoDados.remover(this.idTarefa).subscribe((r) => {
+      //     this.idTarefa = null;
+      //     this.formulario.reset();
+      //   });
     }
+    this.buttons = !this.buttons;
   }
 
   criarTarefa(): any {
     const payload = {
       tarefa: this.formulario.value.tarefa,
-      inicio: `${this.formulario.value.dataInit}T${this.formulario.value.horaInit}`,
-      fim: `${this.formulario.value.dataFim}T${this.formulario.value.horaFim}`,
+      inicio: `${this.formulario.value.dataInit}T${this.formulario.value.horaInit}:00`,
+      fim: `${this.formulario.value.dataFim}T${this.formulario.value.horaFim}:00`,
       descricao: this.formulario.value.descricao,
     };
 
@@ -87,16 +112,27 @@ export class AdminComponent {
     });
 
     this.servicoDados.listarDados().subscribe((r) => {
-      console.log(r);
-      this.servicoDados.listas.next(r);
-      console.log(this.servicoDados.listas.value, 'oi');
+      const tarefas = r.map((t) => {
+        return {
+          ...t,
+          inicio: dayjs(t.inicio).format('DD/MM/YYYY HH:mm'),
+          fim: dayjs(t.fim).format('DD/MM/YYYY HH:mm'),
+        };
+      });
+
+      this.servicoDados.listas.next(tarefas);
     });
-    this.formulario.reset();
+
+    // this.formulario.reset();
+  }
+  onfocus(evento: Event) {
+    console.log(evento);
   }
   modificarTarefa(status?: string): any {
     const tarefa = this.servicoDados.listas.value.filter((tarefa) => {
       return tarefa.id === this.idTarefa;
     });
+    console.log(tarefa, 'vasco');
 
     const payload = {
       tarefa: this.formulario.value.tarefa,
@@ -106,21 +142,33 @@ export class AdminComponent {
       descricao: this.formulario.value.descricao,
       status: status || 'Pendente',
     };
-    console.log(this.formulario.value);
+
     this.servicoDados
       .modificarTarefa(payload as Tarefas, this.idTarefa)
-      .subscribe((r) => {
-        console.log(r);
+      .subscribe({
+        next: () => {
+          this.servicoDados.listarDados().subscribe((r) => {
+            const tarefas = r.map((t) => {
+              return {
+                ...t,
+
+                inicio: dayjs(t.inicio).format('DD/MM/YYYY HH:mm'),
+                fim: dayjs(t.fim).format('DD/MM/YYYY HH:mm'),
+              };
+            });
+
+            console.log(this.formulario.value, 'vasco');
+            this.servicoDados.listas.next(tarefas);
+            console.log(this.servicoDados.listas.value, 'oi');
+          });
+          this.formulario.reset();
+        },
       });
-    this.servicoDados.listarDados().subscribe((r) => {
-      console.log(r);
-      this.servicoDados.listas.next(r);
-      console.log(this.servicoDados.listas.value, 'oi');
-    });
     this.buttons = !this.buttons;
   }
 
   cancelar(): any {
+    console.log('cancelar');
     this.formulario.reset();
     this.buttons = !this.buttons;
   }

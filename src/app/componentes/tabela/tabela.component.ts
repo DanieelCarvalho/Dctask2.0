@@ -50,14 +50,16 @@ export class TabelaComponent {
   }
   mostrarTabela(): any {
     this.obterStatus();
+
     this.servicoDados.listarDados().subscribe((r) => {
       const tarefas = r.map((t) => {
         return {
           ...t,
-          fim: dayjs(t.fim).format('DD/MM/YYYY HH:mm'),
           inicio: dayjs(t.inicio).format('DD/MM/YYYY HH:mm'),
+          fim: dayjs(t.fim).format('DD/MM/YYYY HH:mm'),
         };
       });
+      console.log(tarefas);
       this.servicoDados.listas.next(tarefas);
     });
 
@@ -65,17 +67,10 @@ export class TabelaComponent {
       const tarefas = r.map((t) => {
         return {
           ...t,
-          fim: dayjs(t.fim).format('DD/MM/YYYY HH:mm'),
-          inicio: dayjs(t.inicio).format('DD/MM/YYYY HH:mm'),
         };
       });
-
+      console.log(tarefas, 'teste');
       this.dadosLocalStorage = tarefas;
-      console.log(this.dadosLocalStorage);
-    });
-
-    const teste = this.dadosLocalStorage.forEach((r) => {
-      return r.fim;
     });
   }
 

@@ -21,11 +21,9 @@
     <div class="input-group mb-3">
       <label for="exampleFormControlInput1" class="form-label"></label>
       <input
-        type="text"
+        type="date"
         class="form-control"
         id="dataInicio"
-        onfocus="(this.type='date')"
-        onblur="(this.type='text')"
         placeholder="Data de início"
         formControlName="dataInit"
         value="{{ formulario.value.dataInit }}"
@@ -33,11 +31,9 @@
 
       <label for="exampleFormControlInput1" class="form-label"></label>
       <input
-        type="text"
+        type="time"
         class="form-control"
         id="horaInit"
-        onfocus="(this.type='time')"
-        onblur="(this.type='hora de início')"
         placeholder="Hora de início"
         formControlName="horaInit"
         value="{{ formulario.value.horaInit }}"
@@ -46,11 +42,9 @@
     <div class="input-group mb-3">
       <label for="exampleFormControlInput1" class="form-label"></label>
       <input
-        type="text"
+        type="date"
         class="form-control"
         id="dataTermino"
-        onfocus="(this.type='date')"
-        onblur="(this.type='text')"
         placeholder="Data de termino"
         name="dataTermino"
         formControlName="dataFim"
@@ -59,11 +53,9 @@
 
       <label for="exampleFormControlInput1" class="form-label"></label>
       <input
-        type="text"
+        type="time"
         class="form-control"
         id="horaFim"
-        onfocus="(this.type='time')"
-        onblur="(this.type='hora de início')"
         placeholder="hora de fim"
         formControlName="horaFim"
         value="{{ formulario.value.horaFim }}"

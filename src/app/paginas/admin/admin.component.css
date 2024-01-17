@@ -18,7 +18,8 @@ header h1 {
   align-items: center;
   justify-content: center;
   font-size: 2rem;
-
+  font-family: "Roboto Flex", sans-serif;
+  font-weight: bolder;
   height: 100%;
 }
 header figure {
@@ -44,11 +45,17 @@ form {
   justify-content: center;
   width: 50%;
 }
+form ::placeholder {
+  font-family: "Roboto Flex", sans-serif;
+}
+input {
+  font-family: "Roboto Flex", sans-serif;
+}
 h2 {
   display: flex;
   align-items: center;
   justify-content: center;
-
+  font-family: "Anton", sans-serif;
   height: 5rem;
 }
 input {
@@ -102,6 +109,19 @@ input {
   padding-right: 0.5rem;
 }
 
+#inicio label {
+  margin-right: 0.5rem;
+  display: flex;
+  font-family: "Roboto Flex", sans-serif;
+  font-weight: bolder;
+}
+#fim label {
+  font-family: "Anton", sans-serif;
+  font-family: "Roboto Flex", sans-serif;
+  margin-right: 0.5rem;
+  display: flex;
+  font-weight: bolder;
+}
 /* .buttonExcluirTarefa input {
   padding: 1rem auto;
   width: 100%;

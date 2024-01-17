@@ -15,6 +15,12 @@ header h1 {
   display: flex;
   justify-content: center;
 }
+form ::placeholder {
+  font-family: "Roboto Flex", sans-serif;
+}
+input {
+  font-family: "Roboto Flex", sans-serif;
+}
 
 .link-cadastro {
   position: relative;

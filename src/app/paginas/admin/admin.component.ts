@@ -1,6 +1,11 @@
 import { Component, numberAttribute } from '@angular/core';
 import { TabelaComponent } from '../../componentes/tabela/tabela.component';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import dayjs from 'dayjs';
 import { DadosTarefasComponent } from '../../componentes/dados-tarefas/dados-tarefas.component';
@@ -19,10 +24,10 @@ import { DatePipe } from '@angular/common';
 })
 export class AdminComponent {
   formulario = new FormGroup({
-    tarefa: new FormControl(''),
-    dataInit: new FormControl(''),
+    tarefa: new FormControl('', Validators.required),
+    dataInit: new FormControl('', Validators.required),
     dataFim: new FormControl(''),
-    horaInit: new FormControl(''),
+    horaInit: new FormControl('', Validators.required),
     horaFim: new FormControl(''),
     descricao: new FormControl(''),
   });
@@ -50,11 +55,10 @@ export class AdminComponent {
 
   alterar(id: number): any {
     this.idTarefa = id;
-    console.log('alterando');
+
     const tarefa = this.servicoDados.listas.value.filter((tarefa) => {
       return tarefa.id === id;
     });
-    const dataQuebrada = tarefa[0].inicio?.split('/')[0];
 
     const dInit = tarefa[0].inicio?.split(' ')[0];
     const dFim = tarefa[0].fim?.split(' ')[0];
@@ -66,6 +70,7 @@ export class AdminComponent {
 
     const dataInit = desformatarData(dInit);
     const dataFim = desformatarData(dFim);
+
     // function desformatarData(12/10/2022) {
     //   const temHora = dataFormatada.includes('T');
     //   if (temHora) {
@@ -84,13 +89,12 @@ export class AdminComponent {
     //   const dataQuebrada = dataFormatada.split('/');
     //   return dataQuebrada[2] + '-' + dataQuebrada[1] + '-' + dataQuebrada[0];
     // }
-    const valorCerto = desformatarData('30/12/2023');
 
     this.formulario.patchValue({
       tarefa: tarefa[0].tarefa || '',
-      dataInit: dataInit,
+      dataInit: dataInit || '',
       horaInit: tarefa[0].inicio?.split(' ')[1] || '',
-      dataFim: dataFim,
+      dataFim: dataFim || '',
       horaFim: tarefa[0].fim?.split(' ')[1] || '',
       descricao: tarefa[0].descricao || '',
     });
@@ -133,9 +137,7 @@ export class AdminComponent {
       descricao: this.formulario.value.descricao,
     };
 
-    this.servicoDados.criarTarefas(payload as Tarefas).subscribe((r) => {
-      console.log(r);
-    });
+    this.servicoDados.criarTarefas(payload as Tarefas).subscribe((r) => {});
 
     this.servicoDados.listarDados().subscribe((r) => {
       const tarefas = r.map((t) => {
@@ -151,14 +153,11 @@ export class AdminComponent {
 
     this.formulario.reset();
   }
-  onfocus(evento: Event) {
-    console.log(evento);
-  }
+
   modificarTarefa(status?: string): any {
     const tarefa = this.servicoDados.listas.value.filter((tarefa) => {
       return tarefa.id === this.idTarefa;
     });
-    console.log(tarefa, 'vasco');
 
     const payload = {
       tarefa: this.formulario.value.tarefa,
@@ -183,9 +182,7 @@ export class AdminComponent {
               };
             });
 
-            console.log(this.formulario.value, 'vasco');
             this.servicoDados.listas.next(tarefas);
-            console.log(this.servicoDados.listas.value, 'oi');
           });
           this.formulario.reset();
         },
@@ -194,7 +191,6 @@ export class AdminComponent {
   }
 
   cancelar(): any {
-    console.log('cancelar');
     this.formulario.reset();
     this.buttons = !this.buttons;
   }

@@ -7,58 +7,54 @@
   <h2>Adicione uma tarefa</h2>
   <form [formGroup]="formulario" (submit)="criarTarefa()">
     <div class="input-group mb-3">
-      <label for="exampleFormControlInput1" class="form-label"></label>
+      <label for="tarefa" class="form-label"></label>
       <input
         type="text"
         class="form-control"
         id="tarefa"
         placeholder="Tarefa"
         formControlName="tarefa"
-        value="{{ formulario.value.tarefa }}"
       />
     </div>
 
-    <div class="input-group mb-3">
-      <label for="exampleFormControlInput1" class="form-label"></label>
+    <div id="inicio" class="input-group mb-3">
+      <label for="dataInit" class="form-label">Início: </label>
       <input
         type="date"
         class="form-control"
-        id="dataInicio"
+        id="dataInit"
         placeholder="Data de início"
         formControlName="dataInit"
-        value="{{ formulario.value.dataInit }}"
       />
 
-      <label for="exampleFormControlInput1" class="form-label"></label>
+      <label for="horaInit" class="form-label"> </label>
       <input
         type="time"
         class="form-control"
         id="horaInit"
         placeholder="Hora de início"
         formControlName="horaInit"
-        value="{{ formulario.value.horaInit }}"
       />
     </div>
-    <div class="input-group mb-3">
-      <label for="exampleFormControlInput1" class="form-label"></label>
+    <div id="fim" class="input-group mb-3">
+      <label for="dataFim" class="form-label">Término:</label>
       <input
         type="date"
+        formControlName="data"
+        placeholder="Selecione uma data"
         class="form-control"
-        id="dataTermino"
+        id="dataFim"
         placeholder="Data de termino"
-        name="dataTermino"
         formControlName="dataFim"
-        value="{{ formulario.value.dataFim }}"
       />
 
-      <label for="exampleFormControlInput1" class="form-label"></label>
+      <label for="horaFim" class="form-label"></label>
       <input
         type="time"
-        class="form-control"
         id="horaFim"
+        class="form-control"
         placeholder="hora de fim"
         formControlName="horaFim"
-        value="{{ formulario.value.horaFim }}"
       />
     </div>
 
@@ -69,7 +65,6 @@
         id="descricao"
         placeholder="Descrição"
         formControlName="descricao"
-        value="{{ formulario.value.descricao }}"
       ></textarea>
     </div>
     <section class="buttons">

@@ -34,7 +34,6 @@ export class HomeComponent {
         this.rota.navigateByUrl('/admin');
         localStorage.setItem('token', r.token);
         localStorage.setItem('nome', r.username);
-        console.log(r);
       },
       (error) => {
         if (error.status === 401) {

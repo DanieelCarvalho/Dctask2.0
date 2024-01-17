@@ -26,8 +26,6 @@ export class TabelaComponent {
 
   alterar2(id: any): void {
     this.alterar.emit(id);
-    console.log(id, 'ola');
-    // console.log(this.dadosLocalStorage);
   }
   obterStatus(): any {
     const dataAtual = new Date();
@@ -46,7 +44,6 @@ export class TabelaComponent {
   }
   mostrarTarefa(id: any): void {
     this.idTarefa = id;
-    console.log(this.idTarefa);
   }
   mostrarTabela(): any {
     this.obterStatus();
@@ -59,7 +56,7 @@ export class TabelaComponent {
           fim: dayjs(t.fim).format('DD/MM/YYYY HH:mm'),
         };
       });
-      console.log(tarefas);
+
       this.servicoDados.listas.next(tarefas);
     });
 
@@ -69,7 +66,7 @@ export class TabelaComponent {
           ...t,
         };
       });
-      console.log(tarefas, 'teste');
+
       this.dadosLocalStorage = tarefas;
     });
   }

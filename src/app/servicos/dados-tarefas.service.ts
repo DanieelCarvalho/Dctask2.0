@@ -35,7 +35,6 @@ export class DadosTarefasService {
     });
   }
   remover(id: number): Observable<number> {
-    console.log(id, typeof id);
     return this.http.delete<number>(`${this.url}/tarefas/${id}`, {
       headers: new HttpHeaders({
         Authorization: 'Bearer ' + localStorage.getItem('token'),

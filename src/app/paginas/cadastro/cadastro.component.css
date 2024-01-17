@@ -18,6 +18,12 @@ header h1 {
 .iconeRetorno img {
   cursor: pointer;
 }
+form ::placeholder {
+  font-family: "Roboto Flex", sans-serif;
+}
+input {
+  font-family: "Roboto Flex", sans-serif;
+}
 main {
   display: flex;
   justify-content: space-evenly;

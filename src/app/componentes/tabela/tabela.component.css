@@ -5,6 +5,9 @@ form {
   justify-content: center;
   width: 50%;
 }
+table {
+  font-family: "Roboto Flex", sans-serif;
+}
 #tabelaDados {
   margin-left: 3rem;
 }

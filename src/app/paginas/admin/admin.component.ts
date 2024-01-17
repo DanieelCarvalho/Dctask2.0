@@ -8,6 +8,7 @@ import { Tarefas } from '../../models/Tarefas';
 import { DadosTarefasService } from '../../servicos/dados-tarefas.service';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-admin',
@@ -53,21 +54,46 @@ export class AdminComponent {
     const tarefa = this.servicoDados.listas.value.filter((tarefa) => {
       return tarefa.id === id;
     });
-    const dataInicio = dayjs(tarefa[0].inicio?.split(' ')[0]).format(
-      'DD/MM/YYYY HH:mm'
-    );
+    const dataQuebrada = tarefa[0].inicio?.split('/')[0];
 
-    console.log(dataInicio);
+    const dInit = tarefa[0].inicio?.split(' ')[0];
+    const dFim = tarefa[0].fim?.split(' ')[0];
+
+    function desformatarData(dataFormatada: any) {
+      const dataQuebrada = dataFormatada.split('/');
+      return dataQuebrada[2] + '-' + dataQuebrada[1] + '-' + dataQuebrada[0];
+    }
+
+    const dataInit = desformatarData(dInit);
+    const dataFim = desformatarData(dFim);
+    // function desformatarData(12/10/2022) {
+    //   const temHora = dataFormatada.includes('T');
+    //   if (temHora) {
+    //     const horaQuebrada = dataFormatada.split('T');
+    //     const dataQuebrada = horaQuebrada[0].split('/');
+    //     return (
+    //       dataQuebrada[2] +
+    //       '-' +
+    //       dataQuebrada[1] +
+    //       '-' +
+    //       dataQuebrada[0] +
+    //       'T' +
+    //       horaQuebrada[1]
+    //     );
+    //   }
+    //   const dataQuebrada = dataFormatada.split('/');
+    //   return dataQuebrada[2] + '-' + dataQuebrada[1] + '-' + dataQuebrada[0];
+    // }
+    const valorCerto = desformatarData('30/12/2023');
 
     this.formulario.patchValue({
       tarefa: tarefa[0].tarefa || '',
-      dataInit: tarefa[0].inicio?.split(' ')[0] || '',
+      dataInit: dataInit,
       horaInit: tarefa[0].inicio?.split(' ')[1] || '',
-      dataFim: tarefa[0].fim?.split(' ')[0] || '',
+      dataFim: dataFim,
       horaFim: tarefa[0].fim?.split(' ')[1] || '',
       descricao: tarefa[0].descricao || '',
     });
-    console.log(this.formulario.value);
     this.buttons = true;
   }
 
@@ -123,7 +149,7 @@ export class AdminComponent {
       this.servicoDados.listas.next(tarefas);
     });
 
-    // this.formulario.reset();
+    this.formulario.reset();
   }
   onfocus(evento: Event) {
     console.log(evento);

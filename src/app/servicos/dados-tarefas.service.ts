@@ -9,7 +9,7 @@ import { Tarefas } from '../models/Tarefas';
 export class DadosTarefasService {
   constructor(private http: HttpClient) {}
 
-  private url: string = 'http://localhost:3000';
+  private url: string = 'https://decent-line-411418.uc.r.appspot.com';
   public listas = new BehaviorSubject<Tarefas[]>([]);
 
   listarDados(): Observable<Tarefas[]> {

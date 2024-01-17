@@ -8,7 +8,7 @@ import { Credencial } from '../models/Credencial';
   providedIn: 'root',
 })
 export class UsuarioService {
-  private url: string = 'http://localhost:3000';
+  private url: string = 'https://decent-line-411418.uc.r.appspot.com';
   // private url: string = 'http://localhost:8080';
 
   constructor(private http: HttpClient) {}

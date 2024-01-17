@@ -73,7 +73,7 @@
       ></textarea>
     </div>
     <section class="buttons">
-      <div class="buttonALterarTarefa">
+      <div class="buttonAlteracoes">
         <input
           *ngIf="buttons"
           type="button"
@@ -83,7 +83,7 @@
         />
       </div>
 
-      <div class="buttonExcluirTarefa">
+      <div class="buttonAlteracoes">
         <input
           *ngIf="buttons"
           type="button"
@@ -92,14 +92,14 @@
           (click)="apagarTarefa()"
         />
       </div>
-      <div class="buttonCriarTarefa">
+      <div class="buttonCriarTarefa" *ngIf="!buttons">
         <input
           type="submit"
           value="Criar tarefa"
           class="btn btn-primary form-control-lg"
         />
       </div>
-      <div class="buttonTarefaRealizada" id="">
+      <div class="buttonAlteracoes" id="">
         <input
           *ngIf="buttons"
           type="button"
@@ -108,7 +108,7 @@
           (click)="modificarTarefa('Realizada')"
         />
       </div>
-      <div class="buttonCancelar">
+      <div class="buttonAlteracoes">
         <input
           *ngIf="buttons"
           type="submit"

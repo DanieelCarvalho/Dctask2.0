@@ -43,7 +43,14 @@
     role="alert"
     style="display: none"
   ></div>
-
+  <p
+    *ngIf="usuarioCadastrado"
+    class="mensagem-erro"
+    class="alert alert-danger form-control"
+    role="alert"
+  >
+    Usuário já cadastrado
+  </p>
   <div class="buttons">
     <input
       type="submit"

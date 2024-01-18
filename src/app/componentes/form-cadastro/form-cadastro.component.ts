@@ -28,14 +28,23 @@ export class FormCadastroComponent {
     senha: new FormControl('', [Validators.required, Validators.minLength(7)]),
   });
 
+  usuarioCadastrado: boolean = false;
   cadastrar(): void {
-    this.servico
-      .cadastrar(this.formulario.value as Usuario)
-      .subscribe((usuario) => {
+    this.servico.cadastrar(this.formulario.value as Usuario).subscribe(
+      (usuario) => {
         this.usuarios.push(usuario);
         this.formulario.reset();
-      });
-    this.rota.navigateByUrl('/home');
+        this.rota.navigateByUrl('/home');
+      },
+      (error) => {
+        if (error.status === 409) {
+          this.usuarioCadastrado = true;
+          setTimeout(() => {
+            this.usuarioCadastrado = false;
+          }, 2000);
+        }
+      }
+    );
     // const listaUser = JSON.parse(localStorage.getItem('listaUser') || '[]');
 
     // const emailExiste: boolean = listaUser.some(

@@ -68,10 +68,8 @@ table {
 }
 
 @media (max-width: 600px) {
-  form {
-    width: 95vw;
-  }
   #tabelaDados {
-    margin-left: 1rem;
+    margin-left: initial;
+    width: 100%;
   }
 }

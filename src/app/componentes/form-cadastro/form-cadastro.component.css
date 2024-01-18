@@ -5,7 +5,12 @@ form {
 
 input {
   margin-bottom: 10px;
+  font-family: "Roboto Flex", sans-serif;
 }
+form ::placeholder {
+  font-family: "Roboto Flex", sans-serif;
+}
+
 h2 {
   font-family: "Anton", sans-serif;
   font-weight: normal;

@@ -18,12 +18,7 @@ header h1 {
 .iconeRetorno img {
   cursor: pointer;
 }
-form ::placeholder {
-  font-family: "Roboto Flex", sans-serif;
-}
-input {
-  font-family: "Roboto Flex", sans-serif;
-}
+
 main {
   display: flex;
   justify-content: space-evenly;
@@ -47,9 +42,9 @@ section {
 @media (max-width: 600px) {
   main {
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
 
-    height: 100%;
+    height: 100vh;
   }
   main figure {
     display: flex;
@@ -58,6 +53,5 @@ section {
   }
   main figure img {
     width: 100%;
-    height: 100%;
   }
 }

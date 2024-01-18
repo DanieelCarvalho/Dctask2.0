@@ -1,7 +1,5 @@
 # DcTask - Gerenciador de Tarefas
 
-![gif](src/assets/DcTask20%20-%20Google%20Chrome%202024-01-18%2009-41-29.gif)
-
 DcTask é um gerenciador de tarefas com uma interface intuitiva para facilitar o seu dia a dia.
 
 # Recursos Principais

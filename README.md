@@ -1,9 +1,8 @@
+# DcTask - Gerenciador de Tarefas
 
-# DcTask - Gerenciador de Tarefas 
+![gif](src/assets/DcTask20%20-%20Google%20Chrome%202024-01-18%2009-41-29.gif)
 
 DcTask é um gerenciador de tarefas com uma interface intuitiva para facilitar o seu dia a dia.
-
-
 
 # Recursos Principais
 
@@ -15,19 +14,15 @@ DcTask é um gerenciador de tarefas com uma interface intuitiva para facilitar o
 
 - Operações de Tarefa: Utilize os botões de Alterar para editar informações, Excluir para remover, Marcar como Realizada para concluir uma tarefa e Cancelar para interromper uma tarefa em andamento.
 
-
-# Tecnologias 
+# Tecnologias
 
 DcTask é construído utilizando as seguintes tecnologias:
 
-- Frontend: Angular 
+- Frontend: Angular
 
-- Backend: Node.js 
+- Backend: Node.js
 
 - Banco de Dados: MySQL
 - ## Deploy
-
-
-
 
   https://dctask2-0.vercel.app/home

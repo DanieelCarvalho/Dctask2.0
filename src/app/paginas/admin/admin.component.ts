@@ -137,21 +137,37 @@ export class AdminComponent {
       descricao: this.formulario.value.descricao,
     };
 
-    this.servicoDados.criarTarefas(payload as Tarefas).subscribe((r) => {});
+    this.servicoDados.criarTarefas(payload as Tarefas).subscribe({
+      next: () => {
+        this.servicoDados.listarDados().subscribe((r) => {
+          const tarefas = r.map((t) => {
+            return {
+              ...t,
 
-    this.servicoDados.listarDados().subscribe((r) => {
-      const tarefas = r.map((t) => {
-        return {
-          ...t,
-          inicio: dayjs(t.inicio).format('DD/MM/YYYY HH:mm'),
-          fim: dayjs(t.fim).format('DD/MM/YYYY HH:mm'),
-        };
-      });
+              inicio: dayjs(t.inicio).format('DD/MM/YYYY HH:mm'),
+              fim: dayjs(t.fim).format('DD/MM/YYYY HH:mm'),
+            };
+          });
 
-      this.servicoDados.listas.next(tarefas);
+          this.servicoDados.listas.next(tarefas);
+        });
+        this.formulario.reset();
+      },
     });
 
-    this.formulario.reset();
+    // this.servicoDados.listarDados().subscribe((r) => {
+    //   const tarefas = r.map((t) => {
+    //     return {
+    //       ...t,
+    //       inicio: dayjs(t.inicio).format('DD/MM/YYYY HH:mm'),
+    //       fim: dayjs(t.fim).format('DD/MM/YYYY HH:mm'),
+    //     };
+    //   });
+
+    //   this.servicoDados.listas.next(tarefas);
+    // });
+
+    // this.formulario.reset();
   }
 
   modificarTarefa(status?: string): any {
